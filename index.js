@@ -75,37 +75,11 @@
 // run();
 
 const fs = require('fs');
-
+const { prompt } = require('inquirer');
+const { Circle, Triangle, Square } = require('./lib/shapes'); 
 const promptUser = async () => {
-  const { prompt } = await import('inquirer');
-  return prompt([
-    {
-      type: 'input',
-      name: 'text',
-      message: 'Enter up to three characters:',
-      validate: (input) => {
-        if (input.length <= 3) {
-          return true;
-        }
-        return 'Please enter up to three characters.';
-      },
-    },
-    {
-      type: 'input',
-      name: 'textColor',
-      message: 'Enter the text color:',
-    },
-    {
-      type: 'list',
-      name: 'shape',
-      message: 'Choose a shape:',
-      choices: ['circle', 'triangle', 'square'],
-    },
-    {
-      type: 'input',
-      name: 'shapeColor',
-      message: 'Enter the shape color:',
-    },
+return prompt([
+'which shape do you want'// prompt questions...
   ]);
 };
 
