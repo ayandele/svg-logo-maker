@@ -1,10 +1,19 @@
-const fs = require('fs');
-const { createPromptModule } = require('inquirer');
-const { Circle, Triangle, Square } = require('./lib/shapes'); 
+import fs from 'fs';
+import inquirer from 'inquirer';
+import { Circle, Triangle, Square } from './lib/shapes.js';
+
 const promptUser = async () => {
-return prompt([
-'which shape do you want'// prompt questions...
+  const { prompt } = inquirer;
+  const data = await prompt([
+    {
+      type: 'list',
+      name: 'shape',
+      message: 'Choose a shape:',
+      choices: ['circle', 'triangle', 'square'],
+    },
   ]);
+
+  return data;
 };
 
 const generateSVG = (data) => {
