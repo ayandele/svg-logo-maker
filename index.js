@@ -1,75 +1,150 @@
-const inquirer = require('inquirer');
-const fs = require('fs');
-const { Triangle, Circle, Square } = require('./lib/shapes.js.js');
+// const inquirer = require('inquirer');
+// const fs = require('fs');
+// const { Triangle, Circle, Square } = require('./lib/shapes.js.js');
 
-const promptUser = () => {
-return inquirer.prompt([
+// const promptUser = () => {
+// return inquirer.prompt([
+//     {
+//     type: 'input',
+//     name: 'text',
+//     message: 'Enter up to three characters:',
+//     validate: (input) => {
+//         if (input.length <= 3) {
+//         return true;
+//         }
+//         return 'Please enter up to three characters.';
+//     },
+//     },
+//     {
+//     type: 'input',
+//     name: 'textColor',
+//     message: 'Enter the text color:',
+//     },
+//     {
+//     type: 'list',
+//     name: 'shape',
+//     message: 'Choose a shape:',
+//     choices: ['circle', 'triangle', 'square'],
+//     },
+//     {
+//     type: 'input',
+//     name: 'shapeColor',
+//     message: 'Enter the shape color:',
+//     },
+// ]);
+// };
+
+// const generateSVG = (data) => {
+// let shape;
+// switch (data.shape) {
+//     case 'circle':
+//     shape = new Circle();
+//     break;
+//     case 'triangle':
+//     shape = new Triangle();
+//     break;
+//     case 'square':
+//     shape = new Square();
+//     break;
+//     default:
+//     throw new Error('Invalid shape');
+// }
+
+// shape.setColor(data.shapeColor);
+
+// const svgContent = `<svg width="300" height="200">${shape.render()}</svg>`;
+
+// fs.writeFile('logo.svg', svgContent, (err) => {
+//     if (err) {
+//     console.error('An error occurred while writing the SVG file:', err);
+//     } else {
+//     console.log('Generated logo.svg');
+//     }
+// });
+// };
+
+// const run = async () => {
+// try {
+//     const userInput = await promptUser();
+//     generateSVG(userInput);
+// } catch (error) {
+//     console.error('An error occurred:', error);
+// }
+// };
+
+// run();
+
+const fs = require('fs');
+
+const promptUser = async () => {
+  const { prompt } = await import('inquirer');
+  return prompt([
     {
-    type: 'input',
-    name: 'text',
-    message: 'Enter up to three characters:',
-    validate: (input) => {
+      type: 'input',
+      name: 'text',
+      message: 'Enter up to three characters:',
+      validate: (input) => {
         if (input.length <= 3) {
-        return true;
+          return true;
         }
         return 'Please enter up to three characters.';
-    },
-    },
-    {
-    type: 'input',
-    name: 'textColor',
-    message: 'Enter the text color:',
+      },
     },
     {
-    type: 'list',
-    name: 'shape',
-    message: 'Choose a shape:',
-    choices: ['circle', 'triangle', 'square'],
+      type: 'input',
+      name: 'textColor',
+      message: 'Enter the text color:',
     },
     {
-    type: 'input',
-    name: 'shapeColor',
-    message: 'Enter the shape color:',
+      type: 'list',
+      name: 'shape',
+      message: 'Choose a shape:',
+      choices: ['circle', 'triangle', 'square'],
     },
-]);
+    {
+      type: 'input',
+      name: 'shapeColor',
+      message: 'Enter the shape color:',
+    },
+  ]);
 };
 
 const generateSVG = (data) => {
-let shape;
-switch (data.shape) {
+  let shape;
+  switch (data.shape) {
     case 'circle':
-    shape = new Circle();
-    break;
+      shape = new Circle();
+      break;
     case 'triangle':
-    shape = new Triangle();
-    break;
+      shape = new Triangle();
+      break;
     case 'square':
-    shape = new Square();
-    break;
+      shape = new Square();
+      break;
     default:
-    throw new Error('Invalid shape');
-}
+      throw new Error('Invalid shape');
+  }
 
-shape.setColor(data.shapeColor);
+  shape.setColor(data.shapeColor);
 
-const svgContent = `<svg width="300" height="200">${shape.render()}</svg>`;
+  const svgContent = `<svg width="300" height="200">${shape.render()}</svg>`;
 
-fs.writeFile('logo.svg', svgContent, (err) => {
+  fs.writeFile('logo.svg', svgContent, (err) => {
     if (err) {
-    console.error('An error occurred while writing the SVG file:', err);
+      console.error('An error occurred while writing the SVG file:', err);
     } else {
-    console.log('Generated logo.svg');
+      console.log('Generated logo.svg');
     }
-});
+  });
 };
 
 const run = async () => {
-try {
+  try {
     const userInput = await promptUser();
     generateSVG(userInput);
-} catch (error) {
+  } catch (error) {
     console.error('An error occurred:', error);
-}
+  }
 };
 
 run();
